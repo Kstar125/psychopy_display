@@ -10,7 +10,9 @@ NUM_MINUTES = 20 # Session time in minutes.
  
 FRAME_NUM = HZ_DISPLAY * 60 * NUM_MINUTES #Number of Hz * 60s * Number of Minutes
 
-INSTRUCTION_FRAME_NUM = 2160 #144 Hz * 15s
+BLOCK_TIME = int(FRAME_NUM / 3) 
+
+INSTRUCTION_FRAME_NUM = HZ_DISPLAY * 15 #144 Hz * 15s
 
 free_gaze_msg = visual.TextStim(win, text="Feel free to let your mind wander and look anywhere on the screen.")
 
@@ -59,27 +61,26 @@ def instruction_block(instance_count):
 
 instruction_block(0)
 
-for frameN in range(int(FRAME_NUM / 3)):
-    if 0 < frameN < FRAME_NUM / 3:
+for frameN in range(BLOCK_TIME):
+    if frameN < BLOCK_TIME:
         free_gaze_block()
     win.flip()
     
 instruction_block(1)  
 
-for frameN in range(int(FRAME_NUM / 3)):
-    if 0 < frameN < FRAME_NUM / 3:
+for frameN in range(BLOCK_TIME):
+    if frameN < BLOCK_TIME:
         fixation_block()
     win.flip()
     
 instruction_block(2)
 
-for frameN in range(int(FRAME_NUM / 3)):
-    if 0 < frameN < FRAME_NUM / 3:
+for frameN in range(BLOCK_TIME):
+    if frameN < BLOCK_TIME:
         close_eye_block()
     win.flip()
         
 instruction_block(3)
-
 
 #Proof of Concept
 #Using a 144 Hz screen to display 1 minute of stimulus in 4 sections
