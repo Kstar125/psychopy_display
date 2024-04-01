@@ -5,6 +5,7 @@ To start the script use PsychoPy (v2023.2.3) and configure the following paramet
 By default:
 
 Frames per second (Hz): 144
+
 Session Length: 21 minutes (20 minute stimulus and 4 blocks of 15 second instruction texts)
 
 HZ_DISPLAY = 144 (adjust frame rate as needed for the host computer running the experiment)
