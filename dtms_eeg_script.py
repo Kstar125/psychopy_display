@@ -59,28 +59,33 @@ def instruction_block(instance_count):
 #time allocated for the first block, then 15 seconds for another instruction
 #block and so on...
 
-instruction_block(0)
-
-for frameN in range(BLOCK_TIME):
-    if frameN < BLOCK_TIME:
-        free_gaze_block()
-    win.flip()
+def main():
     
-instruction_block(1)  
+    instruction_block(0)
 
-for frameN in range(BLOCK_TIME):
-    if frameN < BLOCK_TIME:
-        fixation_block()
-    win.flip()
+    for frameN in range(BLOCK_TIME):
+        if frameN < BLOCK_TIME:
+            free_gaze_block()
+        win.flip()
     
-instruction_block(2)
+    instruction_block(1)  
 
-for frameN in range(BLOCK_TIME):
-    if frameN < BLOCK_TIME:
-        close_eye_block()
-    win.flip()
+    for frameN in range(BLOCK_TIME):
+        if frameN < BLOCK_TIME:
+            fixation_block()
+        win.flip()
+    
+    instruction_block(2)
+
+    for frameN in range(BLOCK_TIME):
+        if frameN < BLOCK_TIME:
+            close_eye_block()
+        win.flip()
         
-instruction_block(3)
+    instruction_block(3)
+    
+if __name__ == "__main__":
+    main()
 
 #Proof of Concept
 #Using a 144 Hz screen to display 1 minute of stimulus in 4 sections
