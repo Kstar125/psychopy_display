@@ -6,11 +6,13 @@ win = visual.Window([1920, 1080]) #PsychoPy display size.
  
 HZ_DISPLAY = 144 #Computer FPS.
  
-NUM_MINUTES = 20 # Session time in minutes.
+NUM_MINUTES = 20 #Session time in minutes.
+
+NUM_STIM_BLOCKS = 3 #Number of stimulus presentation blocks.
  
 FRAME_NUM = HZ_DISPLAY * 60 * NUM_MINUTES #Number of Hz * 60s * Number of Minutes
 
-BLOCK_TIME = int(FRAME_NUM / 3) 
+BLOCK_TIME = int(FRAME_NUM / NUM_STIM_BLOCKS) 
 
 INSTRUCTION_FRAME_NUM = HZ_DISPLAY * 15 #144 Hz * 15s
 
@@ -78,7 +80,7 @@ def stimulus_block(stimulus_choice):
 def instruction_block(instruction_choice):
     """
     Chooses from the four possible instruction texts (chosen with 
-    instance_count and renders the instructions on-screen. 
+    instance_count) and renders the instructions on-screen. 
 
     The instructions will be viewable on-screen for a default of 15 seconds 
     (adjust the INSTRUCTION_FRAME_NUM constant to change this time value).
