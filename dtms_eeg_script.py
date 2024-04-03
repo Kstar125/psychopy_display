@@ -2,7 +2,7 @@ from psychopy import visual, core, clock
 
 #Constants
 
-win = visual.Window([1920, 1080])
+win = visual.Window([1920, 1080]) #PsychoPy display size.
  
 HZ_DISPLAY = 144 #Computer FPS.
  
@@ -34,53 +34,81 @@ complete_phase_instruction_msg = visual.TextStim(win, text="Thank you for partic
 #Block functions
 
 def free_gaze_block():
+    """Render the free_gaze_block stimulus on-screen."""
     free_gaze_msg.draw()
 
 def fixation_block():
+    """Render the fixation_block stimulus on-screen."""
     fixation.draw()
     
 def close_eye_block():
+    """Render the close_eye_msg stimulus on-screen."""
     close_eye_msg.draw()
     
-def instruction_block(instance_count):
+def stimulus_block(stimulus_choice):
+    """
+    Chooses from the three possible stimulus options 
+    (chosen with stimulus_choice) and renders the stimulus on-screen.
+
+    The stimulus will be visible on-screen for a default of 1/3 of the 
+    NUM_MINUTES constant on a 144 Hz system. Adjust the value and the 
+    HZ_DISPLAY constant to optimize stimulus presentation time.
+    """
+    
+    if stimulus_choice == 0: #Free Gaze Block
+        for frameN in range(BLOCK_TIME):
+            if frameN < BLOCK_TIME:
+                free_gaze_block()
+            win.flip()
+                
+    if stimulus_choice == 1: #Fixation Block
+        for frameN in range(BLOCK_TIME):
+            if frameN < BLOCK_TIME:
+                fixation_block()
+            win.flip()
+                
+    if stimulus_choice == 2: #Closed Eye Block
+        for frameN in range(BLOCK_TIME):
+            if frameN < BLOCK_TIME:
+                close_eye_block()
+            win.flip()
+            
+
+    
+def instruction_block(instruction_choice):
+    """
+    Chooses from the four possible instruction texts (chosen with 
+    instance_count and renders the instructions on-screen. 
+
+    The instructions will be viewable on-screen for a default of 15 seconds 
+    (adjust the INSTRUCTION_FRAME_NUM constant to change this time value).
+    """
+    
     for instructionFrameN in range(INSTRUCTION_FRAME_NUM):
         if instructionFrameN < INSTRUCTION_FRAME_NUM:
-            if instance_count == 0:
+            if instruction_choice == 0:
                 first_phase_instruction_msg.draw()
-            if instance_count == 1:
+            if instruction_choice == 1:
                 second_phase_instruction_msg.draw()
-            if instance_count == 2:
+            if instruction_choice == 2:
                 third_phase_instruction_msg.draw()
-            if instance_count == 3:
+            if instruction_choice == 3:
                 complete_phase_instruction_msg.draw()
         win.flip()
-
-#First 15 seconds for instruction presentation followed by one third of
-#time allocated for the first block, then 15 seconds for another instruction
-#block and so on...
 
 def main():
     
     instruction_block(0)
-
-    for frameN in range(BLOCK_TIME):
-        if frameN < BLOCK_TIME:
-            free_gaze_block()
-        win.flip()
+    
+    stimulus_block(0)
     
     instruction_block(1)  
-
-    for frameN in range(BLOCK_TIME):
-        if frameN < BLOCK_TIME:
-            fixation_block()
-        win.flip()
     
-    instruction_block(2)
+    stimulus_block(1)
 
-    for frameN in range(BLOCK_TIME):
-        if frameN < BLOCK_TIME:
-            close_eye_block()
-        win.flip()
+    instruction_block(2)
+    
+    stimulus_block(2)
         
     instruction_block(3)
     
